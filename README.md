@@ -72,10 +72,6 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 ```
-## Create screen
-```
-screen -R <namescreen>
-```
 ## Register Service
 ```
 sudo systemctl daemon-reload && \
@@ -126,6 +122,11 @@ sudo systemctl restart initiad && sudo journalctl -u initiad -f -o cat
 ### Syncing blocks
 ```
 initiad status 2>&1 | jq .sync_info
+```
+
+### Check logs
+```
+sudo journalctl -fu initiad -o cat
 ```
 
 ## We Will Give You 2 Option [ Create Wallet or Import Private Key ]
