@@ -150,15 +150,15 @@ sudo systemctl restart initiad.service
 ```
 initiad status 2>&1 | jq .sync_info
 ```
-### Check logs
-```
-sudo journalctl -fu initiad -o cat
-```
 OR
 ```
 initiad status | jq
 
 local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_height=$(curl -s https://rpc-initia-testnet.trusted-point.com/status | jq -r .result.sync_info.latest_block_height); blocks_left=$((network_height - local_height)); echo "Your node height: $local_height"; echo "Network height: $network_height"; echo "Blocks left: $blocks_left"
+```
+### Check logs
+```
+sudo journalctl -fu initiad -o cat
 ```
 ### Delete Node
 ```
