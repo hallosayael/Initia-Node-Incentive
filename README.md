@@ -100,7 +100,7 @@ mv $HOME/.initia/priv_validator_state.json.backup $HOME/.initia/data/priv_valida
 ```
 ## Restart node
 ```
-sudo systemctl restart initia
+sudo systemctl restart initiad.service
 ```
 # BUT IF YOU FIND ERROR LIKE THIS :
 failed to initialize database: file missing
