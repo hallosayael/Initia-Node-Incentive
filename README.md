@@ -31,7 +31,7 @@ git checkout v0.2.11
 make install
 ```
 
-# Init app
+## Init app
 ```
 initiad init (yourname)  --chain-id initiation-1
 ```
