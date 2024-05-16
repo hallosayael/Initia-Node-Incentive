@@ -95,7 +95,8 @@ mv $HOME/.initia/priv_validator_state.json.backup $HOME/.initia/data/priv_valida
 ```
 sudo systemctl start initia.service && sudo journalctl -u initia.service -f --no-hostname -o cat
 ```
--------------------------------------------------------------------------------------------
+## Sambil menunggu SYNCED, Kalian buat / restore wallet initia dulu
+
 ## We Will Give You 2 Option [ Create Wallet or Import Private Key ]
 
 ### to create a new wallet, use the following command. don’t forget to save the mnemonic
@@ -110,6 +111,8 @@ initiad keys add $WALLET --recover
 ```
 initiad keys list
 ```
+## Setelah SYNCED, Jalankan validator
+
 ### Running Validators 
 ```
 initiad tx mstaking create-validator \
@@ -130,6 +133,10 @@ initiad tx mstaking create-validator \
 -----------------------------------------------------------------------------------------------
 ## CATATAN
 
+## Cek Balance
+```
+initiad q bank balances $(initiad keys show $WALLET -a)
+```
 ## Reset blockchain data
 ```
 sudo systemctl stop initia
