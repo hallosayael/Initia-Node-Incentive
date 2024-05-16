@@ -133,11 +133,15 @@ initiad tx mstaking create-validator \
 -----------------------------------------------------------------------------------------------
 # CATATAN
 
-## Cek Wallet
+## Check Version
+```
+initiad version
+```
+## Check Wallet
 ```
 initiad keys list
 ```
-## Cek Balance
+## Check Balance
 ```
 initiad q bank balances $(initiad keys show $WALLET -a)
 ```
