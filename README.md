@@ -50,9 +50,10 @@ sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.15uinit,0.01uusdc
 
 ## Settings Peers 
 ```
-SEEDS="cd69bcb00a6ecc1ba2b4a3465de4d4dd3e0a3db1@initia-testnet-seed.itrocket.net:51656"
-PEERS="aee7083ab11910ba3f1b8126d1b3728f13f54943@initia-testnet-peer.itrocket.net:11656,7dc968e489e4b8e1b7754703947689b914204884@75.119.153.251:26656,8db26137b760df77c181b939100cdc5ec37c6879@84.46.242.223:15656,394ecb5ad08b02c5063b7a8b61046a5e1261792a@185.227.135.229:51656,50de06f67aaca8c01c7c15e3ddc04c287d327bae@158.220.87.67:22656,1d7d2d2cdb62df2a59aae536047d17f554e58bc3@154.38.181.13:656,1b0843bb3dce9c91115906305b698dc507bf138e@89.117.51.191:51656,ca6731bf7c3ba8c1d8545feb26e3a74adf889f16@38.242.134.10:24656,d25922f0a64e2cbce813d321ac007543e4741f94@137.184.113.189:26656,5a8e5f65179acb3d759099faccfe7752ca4ba536@178.18.248.75:26656,49da32b984143181ae5cae6564aba3a150624d7d@194.180.176.225:26656"
-sed -i -e "s/^seeds =./seeds = "$SEEDS"/; s/^persistent_peers =./persistent_peers = "$PEERS"/" $HOME/.initia/config/config.toml
+PEERS="e3ac92ce5b790c76ce07c5fa3b257d83a517f2f6@178.18.251.146:30656,2692225700832eb9b46c7b3fc6e4dea2ec044a78@34.126.156.141:26656,2a574706e4a1eba0e5e46733c232849778faf93b@84.247.137.184:53456,40d3f977d97d3c02bd5835070cc139f289e774da@168.119.10.134:26313,1f6633bc18eb06b6c0cab97d72c585a6d7a207bc@65.109.59.22:25756,4a988797d8d8473888640b76d7d238b86ce84a2c@23.158.24.168:26656,e3679e68616b2cd66908c460d0371ac3ed7795aa@176.34.17.102:26656,d2a8a00cd5c4431deb899bc39a057b8d8695be9e@138.201.37.195:53456,329227cf8632240914511faa9b43050a34aa863e@43.131.13.84:26656,517c8e70f2a20b8a3179a30fe6eb3ad80c407c07@37.60.231.212:26656,07632ab562028c3394ee8e78823069bfc8de7b4c@37.27.52.25:19656,028999a1696b45863ff84df12ebf2aebc5d40c2d@37.27.48.77:26656,3c44f7dbb473fee6d6e5471f22fa8d8095bd3969@185.219.142.137:53456,8db320e665dbe123af20c4a5c667a17dc146f4d0@51.75.144.149:26656,c424044f3249e73c050a7b45eb6561b52d0db456@158.220.124.183:53456,767fdcfdb0998209834b929c59a2b57d474cc496@207.148.114.112:26656,edcc2c7098c42ee348e50ac2242ff897f51405e9@65.109.34.205:36656,140c332230ac19f118e5882deaf00906a1dba467@185.219.142.119:53456,4eb031b59bd0210481390eefc656c916d47e7872@37.60.248.151:53456,ff9dbc6bb53227ef94dc75ab1ddcaeb2404e1b0b@178.170.47.171:26656,ffb9874da3e0ead65ad62ac2b569122f085c0774@149.28.134.228:26656" && \
+
+SEEDS="2eaa272622d1ba6796100ab39f58c75d458b9dbc@34.142.181.82:26656,c28827cb96c14c905b127b92065a3fb4cd77d7f6@testnet-seeds.whispernode.com:25756" && \
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.initia/config/config.toml
 ```
 
 ## Create Service
@@ -77,74 +78,38 @@ sudo systemctl daemon-reload && \
 sudo systemctl enable initiad && \
 sudo systemctl start initiad && sudo journalctl -fu initiad -o cat
 ```
-## TUNGGU SAMPAI SYNCED
--------------------------------------------------------------------------------------------
-## ADDITIONAL
+## Lanjut download SNAPSHOT, Ikuti step dibawah ini
 
-### FOR USE SNAPSHOT, FOLLOW THIS INSTRUCTION
-
-## Reset blockchain data
-
+## Stop the service and reset the data
 ```
-sudo systemctl stop initia
+sudo systemctl stop initia.service
 cp $HOME/.initia/data/priv_validator_state.json $HOME/.initia/priv_validator_state.json.backup
 rm -rf $HOME/.initia/data
 ```
-## Download snapshot
+## Download latest snapshot
 ```
-curl https://testnet-files.itrocket.net/initia/snap_initia.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.initia
-```
-## Backup state data
-```
+curl -L https://snapshots.kzvn.xyz/initia/initiation-1_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.initia
 mv $HOME/.initia/priv_validator_state.json.backup $HOME/.initia/data/priv_validator_state.json
 ```
-## Restart node
+## Restart the service and check the log
 ```
-sudo systemctl restart initiad.service
+sudo systemctl start initia.service && sudo journalctl -u initia.service -f --no-hostname -o cat
 ```
-# BUT IF YOU FIND ERROR LIKE THIS :
-failed to initialize database: file missing
-initiad.service: Main process exited, code=exited, status=1/FAILURE
-initiad.service: Failed with result 'exit-code'.
-# FOLLOW THE STEPS BELOW
-```
-sudo systemctl stop initiad
-```
-```
-lz4 -d -c ./latest_snapshot.tar.lz4 | tar -xf - -C $HOME/.initia
-```
-## MOVE TO YOUR SCREEN AND PASTE THIS COMMAND
-```
-sudo systemctl restart initiad && sudo journalctl -u initiad -f -o cat
-```
-
-### Syncing blocks
-```
-initiad status 2>&1 | jq .sync_info
-```
-
-### Check logs
-```
-sudo journalctl -fu initiad -o cat
-```
-
+-------------------------------------------------------------------------------------------
 ## We Will Give You 2 Option [ Create Wallet or Import Private Key ]
 
 ### to create a new wallet, use the following command. don’t forget to save the mnemonic
 ```
 initiad keys add $WALLET
 ```
-
 ### to restore exexuting wallet, use the following command
 ```
 initiad keys add $WALLET --recover
 ```
-
 ### to get current list your address 
 ```
 initiad keys list
 ```
-
 ### Running Validators 
 ```
 initiad tx mstaking create-validator \
@@ -164,7 +129,37 @@ initiad tx mstaking create-validator \
 --gas-prices 0.15uinit \
 -y
 ```
+-----------------------------------------------------------------------------------------------
+## CATATAN
 
+## Reset blockchain data
+```
+sudo systemctl stop initia
+cp $HOME/.initia/data/priv_validator_state.json $HOME/.initia/priv_validator_state.json.backup
+rm -rf $HOME/.initia/data
+```
+## Backup state data
+```
+mv $HOME/.initia/priv_validator_state.json.backup $HOME/.initia/data/priv_validator_state.json
+```
+## Restart node
+```
+sudo systemctl restart initiad.service
+```
+### Syncing blocks
+```
+initiad status 2>&1 | jq .sync_info
+```
+### Check logs
+```
+sudo journalctl -fu initiad -o cat
+```
+OR
+```
+initiad status | jq
+
+local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_height=$(curl -s https://rpc-initia-testnet.trusted-point.com/status | jq -r .result.sync_info.latest_block_height); blocks_left=$((network_height - local_height)); echo "Your node height: $local_height"; echo "Network height: $network_height"; echo "Blocks left: $blocks_left"
+```
 ### Delete Node
 ```
 sudo systemctl stop initiad
@@ -175,4 +170,4 @@ sudo rm -rf $HOME/.initia
 sed -i "/INITIA_/d" $HOME/.bash_profile
 ```
 
-Source for snapshot: https://docs.nodex.one/networks/testnet/initia/snapshot
+Source for snapshot: https://docs.kzvn.xyz/cosmos/initia/snapshot
