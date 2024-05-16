@@ -171,12 +171,14 @@ sudo journalctl -fu initiad -o cat
 ```
 ## Delete Node
 ```
-sudo systemctl stop initiad
-sudo systemctl disable initiad
-sudo rm -rf /etc/systemd/system/initiad.service
-sudo rm $(which initiad)
-sudo rm -rf $HOME/.initia
-sed -i "/INITIA_/d" $HOME/.bash_profile
+cd $HOME
+sudo systemctl stop initia.service
+sudo systemctl disable initia.service
+sudo rm /etc/systemd/system/initia.service
+sudo systemctl daemon-reload
+rm -f $(which initiad)
+rm -rf $HOME/.initia
+rm -rf $HOME/initia
 ```
 
 Source for snapshot: https://docs.kzvn.xyz/cosmos/initia/snapshot
