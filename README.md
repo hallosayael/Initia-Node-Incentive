@@ -111,7 +111,7 @@ initiad keys add $WALLET --recover
 ```
 initiad keys list
 ```
-## Setelah SYNCED, Jalankan validator
+## Setelah SYNCED, Jalankan validator (pastikan sudah mempunyai faucet)
 
 ### Running Validators 
 ```
