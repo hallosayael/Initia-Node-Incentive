@@ -114,19 +114,17 @@ initiad keys list
 ```
 initiad tx mstaking create-validator \
 --amount 1000000uinit \
+--from $WALLET \
+--commission-rate 0.1 \
+--commission-max-rate 0.2 \
+--commission-max-change-rate 0.01 \
 --pubkey $(initiad tendermint show-validator) \
---moniker "YOUR_MONIKER_NAME" \
---identity "YOUR_KEYBASE_ID" \
---details "YOUR_DETAILS" \
---website "YOUR_WEBSITE_URL" \
+--moniker "NAMA KALIAN" \
+--identity "PGP KEYBASE" \
+--website "LINK FB / TWITTER / IG" \
+--details "BEBAS" \
 --chain-id initiation-1 \
---commission-rate 0.05 \
---commission-max-rate 0.20 \
---commission-max-change-rate 0.05 \
---from wallet \
---gas-adjustment 1.4 \
---gas auto \
---gas-prices 0.15uinit \
+--gas auto --fees 80000uinit \
 -y
 ```
 -----------------------------------------------------------------------------------------------
