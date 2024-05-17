@@ -173,6 +173,14 @@ local_height=$(initiad status | jq -r .sync_info.latest_block_height); network_h
 ```
 sudo journalctl -fu initiad -o cat
 ```
+## Check Validator name / Moniker
+```
+initiad q mstaking validator $(initiad keys show $WALLET --bech val -a) --output json | jq .description.moniker
+```
+## Check Wallet Validator
+```
+initiad keys show $WALLET --bech val -a
+```
 ## Delete Node
 ```
 cd $HOME
