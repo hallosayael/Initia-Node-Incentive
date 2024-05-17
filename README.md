@@ -190,7 +190,7 @@ initiad tx mstaking edit-validator \
 --website "YOUR_WEBSITE_URL" \
 --chain-id initiation-1 \
 --commission-rate 0.05 \
---from wallet \
+--from $WALLET \
 --gas-adjustment 1.4 \
 --gas auto \
 --gas-prices 0.15uinit \
