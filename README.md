@@ -82,7 +82,7 @@ sudo systemctl start initiad && sudo journalctl -fu initiad -o cat
 
 ## Stop the service and reset the data
 ```
-sudo systemctl stop initia.service
+sudo systemctl stop initiad.service
 cp $HOME/.initia/data/priv_validator_state.json $HOME/.initia/priv_validator_state.json.backup
 rm -rf $HOME/.initia/data
 ```
