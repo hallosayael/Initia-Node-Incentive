@@ -24,10 +24,10 @@ go version
 ## Build Binaries
 ```
 cd $HOME
-rm -rf initia
+rm -rf initia/
 git clone https://github.com/initia-labs/initia.git
 cd initia
-git checkout v0.2.14
+git checkout v0.2.11
 make install
 ```
 
