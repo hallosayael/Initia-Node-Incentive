@@ -93,7 +93,7 @@ mv $HOME/.initia/priv_validator_state.json.backup $HOME/.initia/data/priv_valida
 ```
 ## Restart the service and check the log
 ```
-sudo systemctl start initia.service && sudo journalctl -u initia.service -f --no-hostname -o cat
+sudo systemctl start initiad.service && sudo journalctl -u initiad.service -f --no-hostname -o cat
 ```
 ## Sambil menunggu SYNCED, Kalian buat / restore wallet initia dulu
 
@@ -199,8 +199,8 @@ initiad tx mstaking edit-validator \
 ## Delete Node
 ```
 cd $HOME
-sudo systemctl stop initia.service
-sudo systemctl disable initia.service
+sudo systemctl stop initiad.service
+sudo systemctl disable initiad.service
 sudo rm /etc/systemd/system/initia.service
 sudo systemctl daemon-reload
 rm -f $(which initiad)
