@@ -181,6 +181,21 @@ initiad q mstaking validator $(initiad keys show $WALLET --bech val -a) --output
 ```
 initiad keys show $WALLET --bech val -a
 ```
+## Edit Your Validator
+```
+initiad tx mstaking edit-validator \
+--new-moniker "YOUR_MONIKER_NAME" \
+--identity "YOUR_KEYBASE_ID" \
+--details "YOUR_DETAILS" \
+--website "YOUR_WEBSITE_URL" \
+--chain-id initiation-1 \
+--commission-rate 0.05 \
+--from wallet \
+--gas-adjustment 1.4 \
+--gas auto \
+--gas-prices 0.15uinit \
+-y
+```
 ## Delete Node
 ```
 cd $HOME
